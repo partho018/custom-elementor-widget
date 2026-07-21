@@ -367,12 +367,85 @@ class Custom_What_We_Do_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'primary_media_type',
+			[
+				'label'   => esc_html__( 'Primary Media Type', 'custom-elementor-widgets' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => [
+					'image' => esc_html__( 'Image', 'custom-elementor-widgets' ),
+					'video' => esc_html__( 'Video', 'custom-elementor-widgets' ),
+				],
+				'default' => 'image',
+			]
+		);
+
+		$this->add_control(
 			'primary_image',
 			[
-				'label'   => esc_html__( 'Primary Image', 'custom-elementor-widgets' ),
-				'type'    => Controls_Manager::MEDIA,
-				'default' => [
+				'label'     => esc_html__( 'Primary Image', 'custom-elementor-widgets' ),
+				'type'      => Controls_Manager::MEDIA,
+				'default'   => [
 					'url' => Utils::get_placeholder_image_src(),
+				],
+				'condition' => [
+					'primary_media_type' => 'image',
+				],
+			]
+		);
+
+		$this->add_control(
+			'primary_video_source',
+			[
+				'label'     => esc_html__( 'Video Source', 'custom-elementor-widgets' ),
+				'type'      => Controls_Manager::SELECT,
+				'options' => [
+					'external'    => esc_html__( 'External URL (YouTube/Vimeo)', 'custom-elementor-widgets' ),
+					'self_hosted' => esc_html__( 'Self Hosted (Upload Video)', 'custom-elementor-widgets' ),
+				],
+				'default'   => 'external',
+				'condition' => [
+					'primary_media_type' => 'video',
+				],
+			]
+		);
+
+		$this->add_control(
+			'primary_video_url',
+			[
+				'label'       => esc_html__( 'Video URL', 'custom-elementor-widgets' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => esc_html__( 'e.g. https://www.youtube.com/watch?v=XHOmBV4js_E', 'custom-elementor-widgets' ),
+				'label_block' => true,
+				'condition'   => [
+					'primary_media_type'   => 'video',
+					'primary_video_source' => 'external',
+				],
+			]
+		);
+
+		$this->add_control(
+			'primary_video_file',
+			[
+				'label'      => esc_html__( 'Upload Video File', 'custom-elementor-widgets' ),
+				'type'       => Controls_Manager::MEDIA,
+				'media_type' => 'video',
+				'condition'  => [
+					'primary_media_type'   => 'video',
+					'primary_video_source' => 'self_hosted',
+				],
+			]
+		);
+
+		$this->add_control(
+			'primary_video_poster',
+			[
+				'label'     => esc_html__( 'Video Poster/Thumbnail Image', 'custom-elementor-widgets' ),
+				'type'      => Controls_Manager::MEDIA,
+				'default'   => [
+					'url' => Utils::get_placeholder_image_src(),
+				],
+				'condition' => [
+					'primary_media_type' => 'video',
 				],
 			]
 		);
@@ -999,6 +1072,95 @@ class Custom_What_We_Do_Widget extends Widget_Base {
 			]
 		);
 
+		// Play Button Style Controls
+		$this->add_control(
+			'heading_play_btn_style',
+			[
+				'label'     => esc_html__( 'Play Button Style (Video)', 'custom-elementor-widgets' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => [
+					'primary_media_type' => 'video',
+				],
+			]
+		);
+
+		$this->start_controls_tabs( 'tabs_play_btn_style', [
+			'condition' => [
+				'primary_media_type' => 'video',
+			],
+		] );
+
+		// Normal Tab
+		$this->start_controls_tab(
+			'tab_play_btn_normal',
+			[
+				'label' => esc_html__( 'Normal', 'custom-elementor-widgets' ),
+			]
+		);
+
+		$this->add_control(
+			'play_btn_bg_color',
+			[
+				'label'     => esc_html__( 'Background Color', 'custom-elementor-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ff5500',
+				'selectors' => [
+					'{{WRAPPER}} .ce-process-play-btn' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'play_btn_icon_color',
+			[
+				'label'     => esc_html__( 'Icon Color', 'custom-elementor-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => [
+					'{{WRAPPER}} .ce-process-play-btn svg path' => 'fill: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		// Hover Tab
+		$this->start_controls_tab(
+			'tab_play_btn_hover',
+			[
+				'label' => esc_html__( 'Hover', 'custom-elementor-widgets' ),
+			]
+		);
+
+		$this->add_control(
+			'play_btn_bg_hover_color',
+			[
+				'label'     => esc_html__( 'Background Color', 'custom-elementor-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ffffff',
+				'selectors' => [
+					'{{WRAPPER}} .ce-main-image-wrap:hover .ce-process-play-btn' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'play_btn_icon_hover_color',
+			[
+				'label'     => esc_html__( 'Icon Color', 'custom-elementor-widgets' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#ff5500',
+				'selectors' => [
+					'{{WRAPPER}} .ce-main-image-wrap:hover .ce-process-play-btn svg path' => 'fill: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		// Overlay Image Style
 		$this->add_control(
 			'heading_overlay_img_style',
@@ -1409,11 +1571,38 @@ class Custom_What_We_Do_Widget extends Widget_Base {
 							</div>
 
 							<!-- Images Column -->
-							<?php if ( ! empty( $settings['primary_image']['url'] ) ) : ?>
+							<?php 
+							$primary_media_type = ! empty( $settings['primary_media_type'] ) ? $settings['primary_media_type'] : 'image';
+							$has_primary_image = ! empty( $settings['primary_image']['url'] );
+							$has_video_poster = ! empty( $settings['primary_video_poster']['url'] );
+							
+							if ( ( 'image' === $primary_media_type && $has_primary_image ) || 'video' === $primary_media_type ) : 
+							?>
 								<div class="ce-media-col">
-									<div class="ce-main-image-wrap">
-										<img src="<?php echo esc_url( $settings['primary_image']['url'] ); ?>" alt="<?php echo esc_attr( $settings['heading'] ); ?>" />
-									</div>
+									<?php if ( 'video' === $primary_media_type ) : 
+										$poster_src = $has_video_poster ? $settings['primary_video_poster']['url'] : ( $has_primary_image ? $settings['primary_image']['url'] : Utils::get_placeholder_image_src() );
+										$video_source = ! empty( $settings['primary_video_source'] ) ? $settings['primary_video_source'] : 'external';
+										$video_url = '';
+										
+										if ( 'external' === $video_source ) {
+											$video_url = ! empty( $settings['primary_video_url'] ) ? $settings['primary_video_url'] : '';
+										} else {
+											$video_url = ! empty( $settings['primary_video_file']['url'] ) ? $settings['primary_video_file']['url'] : '';
+										}
+									?>
+										<div class="ce-main-image-wrap ce-process-video-trigger" data-media-type="video" data-video-source="<?php echo esc_attr( $video_source ); ?>" data-video-url="<?php echo esc_url( $video_url ); ?>" style="cursor: pointer; position: relative;">
+											<img src="<?php echo esc_url( $poster_src ); ?>" alt="<?php echo esc_attr( $settings['heading'] ); ?>" />
+											<div class="ce-process-play-btn">
+												<svg viewBox="0 0 24 24" width="28" height="28">
+													<path fill="#ffffff" d="M8 5v14l11-7z"/>
+												</svg>
+											</div>
+										</div>
+									<?php else : ?>
+										<div class="ce-main-image-wrap" data-media-type="image">
+											<img src="<?php echo esc_url( $settings['primary_image']['url'] ); ?>" alt="<?php echo esc_attr( $settings['heading'] ); ?>" />
+										</div>
+									<?php endif; ?>
 
 									<?php if ( 'yes' === $settings['show_overlay_image'] && ! empty( $settings['overlay_image']['url'] ) ) : ?>
 										<div class="ce-overlay-image-wrap">
@@ -1455,6 +1644,86 @@ class Custom_What_We_Do_Widget extends Widget_Base {
 
 			</div>
 		</div>
+
+		<div class="ce-video-lightbox">
+			<div class="ce-video-lightbox-overlay"></div>
+			<div class="ce-video-lightbox-content">
+				<span class="ce-video-lightbox-close">&times;</span>
+				<div class="ce-video-lightbox-container"></div>
+			</div>
+		</div>
+
+		<script>
+		jQuery(document).ready(function($) {
+			if (!window.ceVideoLightboxInitialized) {
+				window.ceVideoLightboxInitialized = true;
+				
+				// Attach click listener for video triggers
+				$(document).on('click', '.ce-process-video-trigger', function(e) {
+					e.preventDefault();
+					const $trigger = $(this);
+					const videoSource = $trigger.attr('data-video-source');
+					const videoUrl = $trigger.attr('data-video-url');
+
+					if (!videoUrl) return;
+
+					const $lightbox = $('.ce-video-lightbox');
+					const $container = $lightbox.find('.ce-video-lightbox-container');
+					$container.empty();
+
+					if (videoSource === 'external') {
+						let embedUrl = '';
+						if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be') || videoUrl.includes('youtube-nocookie.com')) {
+							let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\/shorts\/)([^#\&\?]*).*/;
+							let match = videoUrl.match(regExp);
+							if (match && match[2].length === 11) {
+								embedUrl = 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1&rel=0';
+							}
+						} else if (videoUrl.includes('vimeo.com')) {
+							let regExp = /vimeo\.com\/(?:video\/)?([0-9]+)/;
+							let match = videoUrl.match(regExp);
+							if (match) {
+								embedUrl = 'https://player.vimeo.com/video/' + match[1] + '?autoplay=1';
+							}
+						}
+
+						if (embedUrl) {
+							$container.html(`<iframe src="${embedUrl}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`);
+						} else if (videoUrl.match(/\.(mp4|webm|ogg|ogv)($|\?)/i)) {
+							$container.html(`<video src="${videoUrl}" controls autoplay style="width:100%; height:100%; object-fit:contain;"></video>`);
+						} else {
+							$container.html(`<iframe src="${videoUrl}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>`);
+						}
+					} else if (videoSource === 'self_hosted') {
+						$container.html(`<video src="${videoUrl}" controls autoplay style="width:100%; height:100%; object-fit:contain;"></video>`);
+					}
+
+					$lightbox.addClass('ce-active');
+					$('body').css('overflow', 'hidden');
+				});
+
+				// Close lightbox listeners
+				$(document).on('click', '.ce-video-lightbox-close, .ce-video-lightbox-overlay', function() {
+					const $lightbox = $('.ce-video-lightbox');
+					$lightbox.removeClass('ce-active');
+					$lightbox.find('.ce-video-lightbox-container').empty();
+					$('body').css('overflow', '');
+				});
+
+				// Close on ESC keypress
+				$(document).on('keydown', function(e) {
+					if (e.key === 'Escape') {
+						const $lightbox = $('.ce-video-lightbox');
+						if ($lightbox.hasClass('ce-active')) {
+							$lightbox.removeClass('ce-active');
+							$lightbox.find('.ce-video-lightbox-container').empty();
+							$('body').css('overflow', '');
+						}
+					}
+				});
+			}
+		});
+		</script>
 
 		<?php
 	}

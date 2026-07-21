@@ -17,7 +17,7 @@
 /* Individual Step Row */
 .ce-process-step-row {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
   width: 100%;
   position: relative;
@@ -38,28 +38,31 @@
   flex: 0 0 42%;
   max-width: 42%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .ce-process-col-card {
   flex: 0 0 55%;
   max-width: 55%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Image Box */
 .ce-process-image-wrap {
   width: 100%;
-  height: 340px;
+  height: 285px !important;
+  min-height: 285px !important;
+  max-height: 285px !important;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   position: relative;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.ce-process-image-wrap:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
 }
 
 .ce-process-img {
@@ -68,10 +71,7 @@
   object-fit: cover;
   display: block;
   transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.ce-process-image-wrap:hover .ce-process-img {
-  transform: scale(1.05);
+  flex-grow: 1;
 }
 
 /* Content Card */
@@ -88,13 +88,13 @@
   justify-content: center;
   box-sizing: border-box;
   position: relative;
+  width: 100%;
+  height: 285px !important;
+  min-height: 285px !important;
+  max-height: 285px !important;
+  overflow: hidden;
 }
 
-.ce-process-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
-  border-color: rgba(255, 85, 0, 0.15);
-}
 
 /* Step Number */
 .ce-process-number {
@@ -117,9 +117,6 @@
   transition: color 0.3s ease;
 }
 
-.ce-process-card:hover .ce-process-title {
-  color: #ff5500;
-}
 
 /* Step Description */
 .ce-process-desc {
@@ -134,8 +131,8 @@
   position: absolute;
   left: 20%;
   right: 20%;
-  height: 50px;
-  bottom: -55px;
+  top: 100%;
+  height: 100px;
   pointer-events: none;
   z-index: 1;
   display: flex;
@@ -151,13 +148,173 @@
 
 .ce-process-connector-path {
   stroke: #475569;
-  stroke-width: 2;
+  stroke-width: 2px;
   stroke-dasharray: 6 6;
   fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.ce-process-arrow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ce-process-arrow.ce-arrow-left svg {
+  transform: rotate(180deg);
+}
+
+.ce-process-arrow svg {
+  width: 100%;
+  height: 100%;
 }
 
 .ce-process-arrow-head {
   fill: #ff5500;
+}
+/* Step Button */
+.ce-process-btn {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* Play Button Styling */
+.ce-process-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: #ff5500;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(255, 85, 0, 0.4);
+  transition: all 0.3s ease;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.ce-process-image-wrap:hover .ce-process-play-btn {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+}
+
+.ce-process-image-wrap:hover .ce-process-play-btn svg path {
+  fill: #ff5500;
+}
+
+.ce-process-play-btn svg {
+  margin-left: 3px;
+  transition: fill 0.3s ease;
+}
+
+.ce-process-image-wrap[data-media-type="video"] {
+  cursor: pointer;
+}
+
+/* Video Lightbox Styles */
+.ce-video-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.ce-video-lightbox.ce-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ce-video-lightbox-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.ce-video-lightbox-content {
+  position: relative;
+  width: 90%;
+  max-width: 960px;
+  aspect-ratio: 16/9;
+  background: transparent;
+  z-index: 10;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.ce-video-lightbox.ce-active .ce-video-lightbox-content {
+  transform: scale(1);
+}
+
+.ce-video-lightbox-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ce-video-lightbox-container iframe,
+.ce-video-lightbox-container video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.ce-video-lightbox-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 36px;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+  line-height: 1;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ce-video-lightbox-close:hover {
+  color: #ff5500;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Responsive Styles */
@@ -176,7 +333,14 @@
   }
 
   .ce-process-image-wrap {
-    height: 280px;
+    height: 285px !important;
+  }
+
+  .ce-process-card {
+    height: auto !important;
+    min-height: 285px !important;
+    max-height: none !important;
+    overflow: visible !important;
   }
 
   .ce-process-connector {

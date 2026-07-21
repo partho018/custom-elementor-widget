@@ -344,3 +344,123 @@
     height: 80px;
   }
 }
+
+/* Play Button Styling for What We Do Section */
+.ce-main-image-wrap:hover .ce-process-play-btn {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+}
+
+.ce-main-image-wrap:hover .ce-process-play-btn svg path {
+  fill: #ff5500;
+}
+
+/* Video Lightbox Styles */
+.ce-video-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.ce-video-lightbox.ce-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ce-video-lightbox-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.ce-video-lightbox-content {
+  position: relative;
+  width: 90%;
+  max-width: 960px;
+  aspect-ratio: 16/9;
+  background: transparent;
+  z-index: 10;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.ce-video-lightbox.ce-active .ce-video-lightbox-content {
+  transform: scale(1);
+}
+
+.ce-video-lightbox-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ce-video-lightbox-container iframe,
+.ce-video-lightbox-container video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.ce-video-lightbox-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 36px;
+  color: #fff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 12;
+  line-height: 1;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ce-video-lightbox-close:hover {
+  color: #ff5500;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.ce-process-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: #ff5500;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 25px rgba(255, 85, 0, 0.4);
+  transition: all 0.3s ease;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.ce-process-play-btn svg {
+  margin-left: 3px;
+}

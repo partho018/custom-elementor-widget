@@ -104,10 +104,24 @@ final class Custom_Elementor_Widgets_Plugin {
 			[],
 			self::VERSION
 		);
+		wp_register_style(
+			'custom-promo-banner-style',
+			plugins_url( 'assets/css/promo-banner-style.css', __FILE__ ),
+			[],
+			self::VERSION
+		);
+		wp_register_style(
+			'custom-uboontu-footer-style',
+			plugins_url( 'assets/css/uboontu-footer-style.css', __FILE__ ),
+			[],
+			self::VERSION
+		);
 		wp_enqueue_style( 'custom-elementor-widgets-style' );
 		wp_enqueue_style( 'custom-elementor-sticky-widgets-style' );
 		wp_enqueue_style( 'custom-marquee-widget-style' );
 		wp_enqueue_style( 'custom-process-widget-style' );
+		wp_enqueue_style( 'custom-promo-banner-style' );
+		wp_enqueue_style( 'custom-uboontu-footer-style' );
 	}
 
 	/**
@@ -118,10 +132,14 @@ final class Custom_Elementor_Widgets_Plugin {
 		require_once( __DIR__ . '/widgets/sticky-projects-widget.php' );
 		require_once( __DIR__ . '/widgets/marquee-ticker-widget.php' );
 		require_once( __DIR__ . '/widgets/process-steps-widget.php' );
+		require_once( __DIR__ . '/widgets/promo-banner-widget.php' );
+		require_once( __DIR__ . '/widgets/uboontu-footer-widget.php' );
 		$widgets_manager->register( new \Custom_What_We_Do_Widget() );
 		$widgets_manager->register( new \Custom_Sticky_Projects_Widget() );
 		$widgets_manager->register( new \Custom_Marquee_Ticker_Widget() );
 		$widgets_manager->register( new \Custom_Process_Steps_Widget() );
+		$widgets_manager->register( new \Custom_Promo_Banner_Widget() );
+		$widgets_manager->register( new \Custom_Uboontu_Footer_Widget() );
 	}
 
 	/**
