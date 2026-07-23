@@ -1,10 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 .card-footer-wrapper {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  margin-left: -50vw;
+  width: 100%;
+  max-width: 100%;
   background: var(--card-outer-bg, #F8F9FA);
   padding: 6rem 0;
   overflow: hidden;
@@ -252,7 +250,7 @@
 
 @media (max-width: 576px) {
   .card-footer-panel {
-    padding: 3rem 2rem;
+    padding: 2.5rem 1.25rem;
     border-radius: 20px;
   }
   .card-footer-grid {

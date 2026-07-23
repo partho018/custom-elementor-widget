@@ -277,41 +277,62 @@
 }
 
 /* Responsive Rules for Sticky Projects Widget */
-@media (max-width: 991px) {
+@media (max-width: 1024px) {
   .ce-sticky-left-col,
   .ce-sticky-right-col {
-    flex: 0 0 100%;
-    max-width: 100%;
-    position: relative;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    position: relative !important;
     top: 0 !important;
   }
 
   .ce-sticky-right-col {
-    margin-top: 40px;
-    order: -1;
+    margin-top: 0 !important;
+    margin-bottom: 40px !important;
+    order: -1 !important;
   }
 
   .ce-sticky-right-content {
-    padding-left: 0;
+    padding-left: 0 !important;
   }
 
   .ce-project-card-item {
-    position: relative;
+    position: relative !important;
     top: 0 !important;
-    height: 360px;
+  }
+
+  .ce-reveal-hover {
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
   }
 }
 
-@media (max-width: 600px) {
-  .ce-sticky-heading {
-    font-size: 28px;
+@media (max-width: 767px) {
+  .ce-project-card-item {
+    height: 340px !important; /* Automatic mobile height */
   }
 
-  .ce-project-card-item {
-    height: 300px;
+  .ce-project-card-content {
+    padding: 24px 20px !important; /* Smaller padding for mobile */
+  }
+
+  .ce-sticky-heading {
+    font-size: 28px !important;
   }
 
   .ce-project-card-title {
-    font-size: 20px;
+    font-size: 20px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .ce-project-card-desc {
+    font-size: 13px !important;
+    margin-bottom: 12px !important;
+  }
+  
+  .ce-project-inner-btn {
+    padding: 10px 18px !important;
+    font-size: 13px !important;
   }
 }

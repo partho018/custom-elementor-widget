@@ -295,26 +295,26 @@
 @media (max-width: 991px) {
   .ce-col-left,
   .ce-col-right {
-    flex: 0 0 100%;
-    max-width: 100%;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
   }
 
   .ce-col-left {
-    margin-bottom: 40px;
+    margin-bottom: 40px !important;
   }
 
   .ce-right-content {
-    padding-left: 0;
+    padding-left: 0 !important;
   }
 
   .ce-cards-grid .ce-card-item:nth-child(2n) {
-    margin-top: 0;
+    margin-top: 0 !important;
   }
 }
 
 @media (max-width: 600px) {
   .ce-cards-grid {
-    flex-direction: column;
+    flex-direction: column !important;
   }
 
   .ce-cards-col-left,
@@ -324,24 +324,24 @@
   }
 
   .ce-main-heading {
-    font-size: 28px;
+    font-size: 28px !important;
   }
 
   .ce-details-split {
-    flex-direction: column;
+    flex-direction: column !important;
   }
 
   .ce-media-col {
-    max-width: 100%;
-    width: 100%;
-    margin-top: 20px;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin-top: 20px !important;
   }
 
   .ce-overlay-image-wrap {
-    right: 10px;
-    bottom: -15px;
-    width: 80px;
-    height: 80px;
+    right: 10px !important;
+    bottom: -15px !important;
+    width: 80px !important;
+    height: 80px !important;
   }
 }
 

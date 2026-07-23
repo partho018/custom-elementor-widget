@@ -320,16 +320,17 @@
 /* Responsive Styles */
 @media (max-width: 991px) {
   .ce-process-step-row,
+  .ce-process-step-row.ce-layout-image-left,
   .ce-process-step-row.ce-layout-image-right {
     flex-direction: column !important;
-    gap: 24px;
+    gap: 24px !important;
   }
 
   .ce-process-col-image,
   .ce-process-col-card {
-    flex: 0 0 100%;
-    max-width: 100%;
-    width: 100%;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    width: 100% !important;
   }
 
   .ce-process-image-wrap {
@@ -344,13 +345,14 @@
   }
 
   .ce-process-connector {
-    display: none;
+    display: none !important;
   }
 }
 
 @media (max-width: 600px) {
   .ce-process-card {
     padding: 30px 24px;
+    min-height: auto !important;
   }
 
   .ce-process-number {
@@ -362,6 +364,6 @@
   }
 
   .ce-process-image-wrap {
-    height: 220px;
+    height: 220px !important;
   }
 }
